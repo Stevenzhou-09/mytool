@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StevenTools - Online Tools</title>
+
+<!-- 字体 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #eef2f3 0%, #d9e2ec 100%);
+        color: #333;
+    }
+
+    header {
+        padding: 25px;
+        text-align: center;
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #eee;
+        font-size: 30px;
+        font-weight: 700;
+        cursor: pointer;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+    }
+
+    .tool-card {
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: 0.25s;
+        cursor: pointer;
+        border: 1px solid #e2e8f0;
+    }
+
+    .tool-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .tool-title {
+        font-size: 22px;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .tool-desc {
+        color: #555;
+        font-size: 15px;
+    }
+
+    /* 工具页面 */
+    .tool-page {
+        max-width: 750px;
+        margin: 40px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border: 1px solid #e2e8f0;
+        display: none;
+    }
+
+    button {
+        padding: 12px 20px;
+        background: #4a90e2;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #3a78c7;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<header onclick="goHome()">StevenTools — Free Online Tools</header>
+
+<!-- 首页 -->
+<div id="home" class="container">
+
+    <div class="tool-card" onclick="openPage('uuidgen')">
+        <div class="tool-title">UUID 生成器</div>
+        <div class="tool-desc">一键生成通用唯一识别码 (UUID v4)。</div>
+    </div>
+
+</div>
+
+<!-- 工具页面：UUID -->
+<div id="uuidgen" class="tool-page">
+    <h2>UUID 生成器</h2>
+    <p>点击下面按钮即可生成 UUID v4：</p>
+
+    <button onclick="generateUUID()">生成 UUID</button>
+    <textarea id="uuidOutput" rows="4" placeholder="等待生成..."></textarea>
+</div>
+
+<script>
+function goHome() {
+    document.querySelectorAll('.tool-page').forEach(e => e.style.display = 'none');
+    document.getElementById('home').style.display = 'grid';
+}
+
+function openPage(id) {
+    document.getElementById('home').style.display = 'none';
+    document.querySelectorAll('.tool-page').forEach(e => e.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+
+function generateUUID() {
+    const uuid = crypto.randomUUID();
+    document.getElementById('uuidOutput').value = uuid;
+}
+</script>
+
+</body>
+</html>
