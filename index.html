@@ -1,148 +1,158 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>StevenTools - Online Tools</title>
-
-<!-- 字体 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Steven Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
     body {
         margin: 0;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(135deg, #eef2f3 0%, #d9e2ec 100%);
-        color: #333;
+        padding: 0;
+        background: #0d1117;
+        font-family: Arial, sans-serif;
+        color: #e6edf3;
+        text-align: center;
     }
 
     header {
-        padding: 25px;
-        text-align: center;
-        background: rgba(255,255,255,0.7);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid #eee;
-        font-size: 30px;
-        font-weight: 700;
-        cursor: pointer;
-        position: sticky;
-        top: 0;
-        z-index: 10;
+        padding: 30px 0;
+        font-size: 32px;
+        font-weight: bold;
+        color: #58a6ff;
     }
 
     .container {
-        max-width: 1100px;
+        max-width: 900px;
         margin: auto;
-        padding: 30px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 25px;
+        padding: 20px;
     }
 
-    .tool-card {
-        background: white;
-        padding: 25px;
-        border-radius: 18px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        transition: 0.25s;
-        cursor: pointer;
-        border: 1px solid #e2e8f0;
-    }
-
-    .tool-card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-
-    .tool-title {
-        font-size: 22px;
-        margin-bottom: 8px;
-        font-weight: 600;
-    }
-
-    .tool-desc {
-        color: #555;
-        font-size: 15px;
-    }
-
-    /* 工具页面 */
-    .tool-page {
-        max-width: 750px;
-        margin: 40px auto;
-        padding: 30px;
-        background: white;
-        border-radius: 18px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        border: 1px solid #e2e8f0;
-        display: none;
+    .card {
+        background: #161b22;
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px #000;
     }
 
     button {
-        padding: 12px 20px;
-        background: #4a90e2;
+        background: #238636;
         border: none;
         color: white;
-        font-size: 16px;
-        border-radius: 10px;
+        padding: 10px 20px;
+        border-radius: 8px;
         cursor: pointer;
-        margin-top: 10px;
+        font-size: 16px;
     }
 
     button:hover {
-        background: #3a78c7;
+        background: #2ea043;
     }
 
-    input, textarea, select {
-        width: 100%;
-        padding: 12px;
-        margin-top: 8px;
+    input, select {
+        width: 80%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        margin: 10px 0;
         font-size: 15px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
+    }
+
+    .output {
+        margin-top: 10px;
+        padding: 10px;
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        word-wrap: break-word;
     }
 </style>
-</head>
 
+</head>
 <body>
 
-<header onclick="goHome()">StevenTools — Free Online Tools</header>
+<header>
+    Steven Tools
+</header>
 
-<!-- 首页 -->
-<div id="home" class="container">
+<div class="container">
 
-    <div class="tool-card" onclick="openPage('uuidgen')">
-        <div class="tool-title">UUID 生成器</div>
-        <div class="tool-desc">一键生成通用唯一识别码 (UUID v4)。</div>
+    <!-- UUID -->
+    <div class="card">
+        <h2>UUID 生成器</h2>
+        <button onclick="generateUUID()">生成 UUID</button>
+        <div id="uuidOutput" class="output"></div>
+    </div>
+
+    <!-- Password Generator -->
+    <div class="card">
+        <h2>密码生成器</h2>
+        <input type="number" id="pwLength" placeholder="密码长度（建议 8 - 32）" min="4" max="64">
+        <button onclick="generatePassword()">生成密码</button>
+        <div id="passwordOutput" class="output"></div>
+    </div>
+
+    <!-- GPA Calculator -->
+    <div class="card">
+        <h2>GPA 计算器</h2>
+        <input type="number" id="scoreInput" placeholder="输入你的成绩（0-100）">
+        <button onclick="calcGPA()">计算 GPA</button>
+        <div id="gpaOutput" class="output"></div>
     </div>
 
 </div>
 
-<!-- 工具页面：UUID -->
-<div id="uuidgen" class="tool-page">
-    <h2>UUID 生成器</h2>
-    <p>点击下面按钮即可生成 UUID v4：</p>
-
-    <button onclick="generateUUID()">生成 UUID</button>
-    <textarea id="uuidOutput" rows="4" placeholder="等待生成..."></textarea>
-</div>
 
 <script>
-function goHome() {
-    document.querySelectorAll('.tool-page').forEach(e => e.style.display = 'none');
-    document.getElementById('home').style.display = 'grid';
-}
-
-function openPage(id) {
-    document.getElementById('home').style.display = 'none';
-    document.querySelectorAll('.tool-page').forEach(e => e.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-}
-
+/* UUID */
 function generateUUID() {
     const uuid = crypto.randomUUID();
-    document.getElementById('uuidOutput').value = uuid;
+    document.getElementById("uuidOutput").innerText = uuid;
+}
+
+/* Password Generator */
+function generatePassword() {
+    const length = document.getElementById("pwLength").value;
+    if (!length || length < 4) {
+        alert("请输入合适的密码长度！");
+        return;
+    }
+
+    const chars =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+";
+
+    let pw = "";
+    for (let i = 0; i < length; i++) {
+        pw += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    document.getElementById("passwordOutput").innerText = pw;
+}
+
+/* GPA Calculator */
+function calcGPA() {
+    const score = document.getElementById("scoreInput").value;
+    if (score === "") {
+        alert("请输入成绩！");
+        return;
+    }
+
+    const n = Number(score);
+
+    let gpa = 0;
+    if (n >= 90) gpa = 4.0;
+    else if (n >= 85) gpa = 3.7;
+    else if (n >= 82) gpa = 3.3;
+    else if (n >= 78) gpa = 3.0;
+    else if (n >= 75) gpa = 2.7;
+    else if (n >= 72) gpa = 2.3;
+    else if (n >= 68) gpa = 2.0;
+    else if (n >= 64) gpa = 1.5;
+    else if (n >= 60) gpa = 1.0;
+    else gpa = 0.0;
+
+    document.getElementById("gpaOutput").innerText = "GPA: " + gpa.toFixed(1);
 }
 </script>
 
