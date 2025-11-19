@@ -1,14 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StevenTools — Online Tools</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
 :root{
   --bg: linear-gradient(135deg,#eef2f3 0%,#d9e2ec 100%);
@@ -30,92 +29,45 @@
   --accent: #60a5fa;
   --shadow: 0 12px 40px rgba(0,0,0,0.6);
 }
-
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box;}
+html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
 .app{display:flex;min-height:100vh;}
-
-/* Sidebar */
 .sidebar{
-  width: 260px;
-  background: var(--menu-bg);
-  border-right: 1px solid rgba(0,0,0,0.06);
-  padding: 20px;
-  position:sticky; top:0; height:100vh; overflow:auto;
+  width:260px;background:var(--menu-bg);border-right:1px solid rgba(0,0,0,0.06);
+  padding:20px;position:sticky;top:0;height:100vh;overflow:auto;
 }
-.brand{display:flex;gap:12px;align-items:center;margin-bottom:14px}
-.logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(59,130,246,0.18)}
-.brand-title{font-weight:700;font-size:18px}
-.brand-sub{font-size:12px;color:var(--muted)}
-
-.controls{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
-.btn{padding:8px 12px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer}
-.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(59,130,246,0.18)}
-.select{padding:8px 10px;border-radius:10px;border:1px solid #d1d5db;background:transparent;color:var(--text)}
-
-/* Menu */
-.menu-section{margin-top:10px}
-.menu-header{font-weight:700;cursor:pointer;padding:8px 4px;border-radius:8px}
-.menu-items{padding-left:8px;margin-top:6px;display:none}
-.menu-item{padding:8px;border-radius:8px;cursor:pointer;color:var(--text)}
-.menu-item:hover{color:var(--accent)}
-.menu-item.active{color:var(--accent);font-weight:700;background:linear-gradient(90deg,rgba(59,130,246,0.06),transparent)}
-
-/* Main content */
-.main{
-  flex:1;
-  padding:28px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:20px;
-  align-content:flex-start;
-  justify-content:flex-start;
-}
-
-/* Card style and focus animation */
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:14px;}
+.logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(59,130,246,0.18);}
+.brand-title{font-weight:700;font-size:18px;}
+.brand-sub{font-size:12px;color:var(--muted);}
+.controls{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap;}
+.btn{padding:8px 12px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer;}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(59,130,246,0.18);}
+.select{padding:8px 10px;border-radius:10px;border:1px solid #d1d5db;background:transparent;color:var(--text);}
+.menu-section{margin-top:10px;}
+.menu-header{font-weight:700;cursor:pointer;padding:8px 4px;border-radius:8px;}
+.menu-items{padding-left:8px;margin-top:6px;display:none;}
+.menu-item{padding:8px;border-radius:8px;cursor:pointer;color:var(--text);}
+.menu-item:hover{color:var(--accent);}
+.menu-item.active{color:var(--accent);font-weight:700;background:linear-gradient(90deg,rgba(59,130,246,0.06),transparent);}
+.main{flex:1;padding:28px;display:flex;flex-wrap:wrap;gap:20px;align-content:flex-start;justify-content:flex-start;}
 .card{
-  width: min(540px, calc(50% - 20px));
-  background:var(--card);
-  border-radius:12px;
-  padding:18px;
-  box-shadow:var(--shadow);
-  border:1px solid rgba(0,0,0,0.04);
+  width:min(540px,calc(50%-20px));background:var(--card);border-radius:12px;padding:18px;
+  box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.04);
   transition: transform 360ms cubic-bezier(.2,.9,.2,1), box-shadow 360ms, opacity 300ms, filter 300ms;
-  transform-origin: center center;
-  will-change: transform, opacity;
+  transform-origin:center center;will-change: transform, opacity;
 }
-.card h3{margin:0 0 8px 0}
-.muted{color:var(--muted);font-size:13px}
-.label{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
-
-.card .controls-row{margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.output{margin-top:12px;padding:10px;border-radius:10px;background:var(--glass);border:1px solid rgba(0,0,0,0.04);min-height:42px;white-space:pre-wrap;word-break:break-word}
-
-/* Focused card: scale up and raise above others */
-.card.focused{
-  transform: scale(1.06);
-  box-shadow: 0 30px 80px rgba(2,6,23,0.45);
-  z-index:30;
-  filter: none;
-}
-
-/* When one card is focused, make others slightly faded */
-.card.dimmed{opacity:0.35;filter: blur(0.3px) saturate(0.9);pointer-events:none}
-
-/* Responsive tweaks */
-@media (max-width:900px){
-  .sidebar{display:none}
-  .card{width:100%}
-  .main{padding:16px}
-  .app{flex-direction:column}
-}
-
-/* small helper */
-.small{font-size:13px;color:var(--muted)}
+.card h3{margin:0 0 8px 0;}
+.muted{color:var(--muted);font-size:13px;}
+.label{display:block;margin-top:10px;font-size:13px;color:var(--muted);}
+.card .controls-row{margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.output{margin-top:12px;padding:10px;border-radius:10px;background:var(--glass);border:1px solid rgba(0,0,0,0.04);min-height:42px;white-space:pre-wrap;word-break:break-word;}
+.card.focused{transform: scale(1.06);box-shadow: 0 30px 80px rgba(2,6,23,0.45);z-index:30;filter:none;}
+.card.dimmed{opacity:0.35;filter: blur(0.3px) saturate(0.9);pointer-events:none;}
+@media(max-width:900px){.sidebar{display:none}.card{width:100%}.main{padding:16px}.app{flex-direction:column}}
+.small{font-size:13px;color:var(--muted);}
 </style>
 </head>
-
 <body>
 <div class="app" id="appRoot" data-theme="light">
   <aside class="sidebar" role="navigation" aria-label="Main menu">
@@ -126,7 +78,6 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
         <div id="brandSub" class="brand-sub">Lightweight browser tools</div>
       </div>
     </div>
-
     <div class="controls">
       <button id="themeBtn" class="btn ghost" title="Toggle theme">Theme</button>
       <select id="langSelect" class="select" aria-label="Language">
@@ -135,17 +86,15 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
       </select>
       <button id="downloadBtn" class="btn ghost">Download</button>
     </div>
-
     <nav class="menu">
       <div class="menu-section">
-        <div id="menuBasic" class="menu-header" role="button" tabindex="0" aria-expanded="true" onclick="toggleMenu('basic')">Basic Tools</div>
+        <div id="menuBasic" class="menu-header" role="button" tabindex="0" onclick="toggleMenu('basic')">Basic Tools</div>
         <div id="basic" class="menu-items" style="display:block">
           <div class="menu-item" data-target="card-uuid" onclick="menuGoto(event)">UUID Generator</div>
           <div class="menu-item" data-target="card-pw" onclick="menuGoto(event)">Password Generator</div>
           <div class="menu-item" data-target="card-text" onclick="menuGoto(event)">JSON / Text Tools</div>
         </div>
       </div>
-
       <div class="menu-section">
         <div id="menuEncode" class="menu-header" role="button" tabindex="0" onclick="toggleMenu('encode')">Encoding & Encryption</div>
         <div id="encode" class="menu-items">
@@ -153,7 +102,6 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
           <div class="menu-item" data-target="card-b64" onclick="menuGoto(event)">Base64</div>
         </div>
       </div>
-
       <div class="menu-section">
         <div id="menuNet" class="menu-header" role="button" tabindex="0" onclick="toggleMenu('network')">Network</div>
         <div id="network" class="menu-items">
@@ -162,9 +110,8 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
       </div>
     </nav>
   </aside>
-
   <main class="main" id="mainArea" role="main" aria-live="polite">
-    <!-- UUID -->
+    <!-- UUID Generator Card -->
     <section class="card" id="card-uuid" role="region" aria-label="UUID Generator">
       <h3 data-t="uuid_title">UUID Generator</h3>
       <div class="muted" data-t="uuid_desc">Generate RFC4122 v4 UUIDs</div>
@@ -174,13 +121,12 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
       </div>
       <div id="uuidOut" class="output small">Waiting</div>
     </section>
-
-    <!-- Password -->
+    <!-- Password Generator Card -->
     <section class="card" id="card-pw" role="region" aria-label="Password Generator">
       <h3 data-t="pw_title">Password Generator</h3>
       <div class="muted" data-t="pw_desc">Choose length and charset</div>
       <label class="label" data-t="pw_length">Length</label>
-      <input id="pwLen" type="number" min="4" max="128" value="16" />
+      <input id="pwLen" type="number" min="4" max="128" value="16">
       <label class="label" data-t="pw_charset">Charset</label>
       <select id="pwPreset">
         <option value="strong">Strong (letters+digits+symbols)</option>
@@ -188,20 +134,19 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
         <option value="letters">Letters only</option>
         <option value="custom">Custom</option>
       </select>
-      <input id="pwCustom" placeholder="Custom charset (used when Custom selected)" style="display:none;margin-top:8px" />
+      <input id="pwCustom" placeholder="Custom charset (used when Custom selected)" style="display:none;margin-top:8px">
       <div class="controls-row">
         <button class="btn" onclick="handleFocus('card-pw'); genPassword()" data-t="btn_generate">Generate</button>
         <button class="btn ghost" onclick="copyText('pwOut')" data-t="btn_copy">Copy</button>
       </div>
       <div id="pwOut" class="output small">Waiting</div>
     </section>
-
-    <!-- AES -->
+    <!-- AES-GCM Card -->
     <section class="card" id="card-aes" role="region" aria-label="AES GCM">
       <h3>AES-GCM (local)</h3>
       <div class="muted">Encrypt / decrypt locally with Web Crypto (Base64 output)</div>
       <label class="label">Key (passphrase)</label>
-      <input id="aesKey" placeholder="passphrase" />
+      <input id="aesKey" placeholder="passphrase">
       <label class="label">Plaintext / Ciphertext</label>
       <textarea id="aesInput" placeholder="plaintext or iv:base64cipher"></textarea>
       <div class="controls-row">
@@ -211,8 +156,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
       </div>
       <div id="aesOut" class="output small"></div>
     </section>
-
-    <!-- Base64 -->
+    <!-- Base64 Card -->
     <section class="card" id="card-b64" role="region" aria-label="Base64">
       <h3>Base64</h3>
       <div class="muted">UTF-8 safe Base64 encode/decode</div>
@@ -224,8 +168,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
       </div>
       <div id="b64Out" class="output small"></div>
     </section>
-
-    <!-- JSON / Text -->
+    <!-- JSON/Text Card -->
     <section class="card" id="card-text" role="region" aria-label="JSON Text Tools">
       <h3 data-t="json_title">JSON / Text Tools</h3>
       <textarea id="textInput" placeholder='Paste JSON or text here'></textarea>
@@ -237,12 +180,11 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
       </div>
       <div id="textOut" class="output small"></div>
     </section>
-
-    <!-- Speed test -->
+    <!-- Speed Test Card -->
     <section class="card" id="card-speed" role="region" aria-label="Speed Test">
       <h3 data-t="speed_title">Web Speed Test</h3>
       <div class="muted">Lightweight fetch timing (CORS limits apply)</div>
-      <input id="speedUrl" placeholder="https://example.com" />
+      <input id="speedUrl" placeholder="https://example.com">
       <div class="controls-row">
         <button class="btn" onclick="handleFocus('card-speed'); runSpeedTest()" data-t="btn_test">Test</button>
         <button class="btn ghost" onclick="clearSpeed()">Clear</button>
@@ -251,150 +193,46 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe 
     </section>
   </main>
 </div>
-
 <script>
-/* ---------- Initialization: theme & language ---------- */
-// Theme: follow system by default, but persist user choice
-const root = document.getElementById('appRoot');
-function applyTheme(theme){
-  root.setAttribute('data-theme', theme);
-  localStorage.setItem('st_theme', theme);
+// Theme
+const root=document.getElementById('appRoot');
+function applyTheme(theme){root.setAttribute('data-theme',theme);localStorage.setItem('st_theme',theme);}
+const savedTheme=localStorage.getItem('st_theme');
+if(savedTheme){applyTheme(savedTheme);} else {
+  applyTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 }
-const savedTheme = localStorage.getItem('st_theme');
-if(savedTheme){
-  applyTheme(savedTheme);
-} else {
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(prefersDark ? 'dark' : 'light');
-}
-document.getElementById('themeBtn').addEventListener('click', ()=>{
-  const cur = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  applyTheme(cur);
-});
-
-// Language: default to system language (en if startsWith 'en'), persist
-const langSelect = document.getElementById('langSelect');
-const sysLang = (navigator.language || navigator.userLanguage || 'en').startsWith('zh') ? 'zh' : 'en';
-const savedLang = localStorage.getItem('st_lang') || sysLang;
-langSelect.value = savedLang;
+document.getElementById('themeBtn').addEventListener('click',()=>{applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');});
+// Language
+const langSelect=document.getElementById('langSelect');
+const sysLang=(navigator.language||navigator.userLanguage||'en').startsWith('zh')?'zh':'en';
+const savedLang=localStorage.getItem('st_lang')||sysLang;
+langSelect.value=savedLang;
 applyLang(savedLang);
-langSelect.addEventListener('change', ()=> applyLang(langSelect.value));
-
-// Download single-file HTML
-document.getElementById('downloadBtn').addEventListener('click', ()=>{
-  const html = '<!doctype html>\\n' + document.documentElement.outerHTML;
-  const blob = new Blob([html], {type: 'text/html'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'steventools.html'; a.click();
-  URL.revokeObjectURL(a.href);
-});
-
-/* ---------- Language pack ---------- */
-const LANG = {
-  en: {
-    brand: 'StevenTools', sub: 'Lightweight browser tools',
-    menu_basic: 'Basic Tools', menu_encode: 'Encoding & Encryption', menu_network: 'Network',
-    uuid_title: 'UUID Generator', uuid_desc: 'Generate RFC4122 v4 UUID',
-    pw_title: 'Password Generator', pw_desc: 'Choose length & charset', pw_length: 'Length', pw_charset: 'Charset',
-    btn_generate: 'Generate', btn_copy: 'Copy', btn_encode: 'Encode', btn_decode: 'Decode',
-    btn_pretty: 'Pretty JSON', btn_minify: 'Minify JSON', btn_enc: 'Encrypt', btn_dec: 'Decrypt', btn_test: 'Test',
-    json_title: 'JSON / Text Tools', speed_title: 'Web Speed Test'
-  },
-  zh: {
-    brand: 'StevenTools', sub: '轻量实用的浏览器工具',
-    menu_basic: '基础工具', menu_encode: '编码与加密', menu_network: '网络工具',
-    uuid_title: 'UUID 生成器', uuid_desc: '生成 RFC4122 v4 UUID',
-    pw_title: '密码生成器', pw_desc: '选择长度与字符集', pw_length: '长度', pw_charset: '字符集',
-    btn_generate: '生成', btn_copy: '复制', btn_encode: '编码', btn_decode: '解码',
-    btn_pretty: 'JSON 美化', btn_minify: 'JSON 压缩', btn_enc: '加密', btn_dec: '解密', btn_test: '测试',
-    json_title: 'JSON / 文本工具', speed_title: '网页测速'
-  }
-};
-
+langSelect.addEventListener('change',()=>applyLang(langSelect.value));
 function applyLang(l){
-  localStorage.setItem('st_lang', l);
-  // brand
-  const pack = LANG[l] || LANG.en;
-  document.getElementById('brandTitle').innerText = pack.brand;
-  document.getElementById('brandSub').innerText = pack.sub;
-  // menu headers
-  document.getElementById('menuBasic').innerText = pack.menu_basic;
-  document.getElementById('menuEncode').innerText = pack.menu_encode;
-  document.getElementById('menuNet').innerText = pack.menu_network;
-  // data-t elements
+  localStorage.setItem('st_lang',l);
+  const pack=LANG[l]||LANG.en;
+  document.getElementById('brandTitle').innerText=pack.brand;
+  document.getElementById('brandSub').innerText=pack.sub;
+  document.getElementById('menuBasic').innerText=pack.menu_basic;
+  document.getElementById('menuEncode').innerText=pack.menu_encode;
+  document.getElementById('menuNet').innerText=pack.menu_network;
   document.querySelectorAll('[data-t]').forEach(el=>{
-    const key = el.getAttribute('data-t');
-    if(pack[key]) el.innerText = pack[key];
+    const key=el.getAttribute('data-t');
+    if(pack[key]) el.innerText=pack[key];
   });
 }
-
-/* ---------- Menu behaviour ---------- */
-function toggleMenu(id){
-  const el = document.getElementById(id);
-  el.style.display = el.style.display === 'block' ? 'none' : 'block';
-}
-function menuGoto(evt){
-  const item = evt.currentTarget;
-  const target = item.getAttribute('data-target');
-  // highlight selection
-  document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('active'));
-  item.classList.add('active');
-  // scroll to card and focus
-  const el = document.getElementById(target);
-  if(!el) return;
-  el.scrollIntoView({behavior:'smooth', block:'center'});
-  // apply focus animation
-  handleFocus(target);
-}
-
-/* ---------- Focus / animation ---------- */
-let currentFocused = null;
+const LANG={en:{brand:'StevenTools',sub:'Lightweight browser tools',menu_basic:'Basic Tools',menu_encode:'Encoding & Encryption',menu_network:'Network',uuid_title:'UUID Generator',uuid_desc:'Generate RFC4122 v4 UUID',pw_title:'Password Generator',pw_desc:'Choose length & charset',pw_length:'Length',pw_charset:'Charset',btn_generate:'Generate',btn_copy:'Copy',btn_encode:'Encode',btn_decode:'Decode',btn_pretty:'Pretty JSON',btn_minify:'Minify JSON',btn_enc:'Encrypt',btn_dec:'Decrypt',btn_test:'Test',json_title:'JSON / Text Tools',speed_title:'Web Speed Test'},zh:{brand:'StevenTools',sub:'轻量实用的浏览器工具',menu_basic:'基础工具',menu_encode:'编码与加密',menu_network:'网络工具',uuid_title:'UUID 生成器',uuid_desc:'生成 RFC4122 v4 UUID',pw_title:'密码生成器',pw_desc:'选择长度与字符集',pw_length:'长度',pw_charset:'字符集',btn_generate:'生成',btn_copy:'复制',btn_encode:'编码',btn_decode:'解码',btn_pretty:'JSON 美化',btn_minify:'JSON 压缩',btn_enc:'加密',btn_dec:'解密',btn_test:'测试',json_title:'JSON / 文本工具',speed_title:'网页测速'}};
+// Menu
+function toggleMenu(id){const el=document.getElementById(id);el.style.display=el.style.display==='block'?'none':'block';}
+function menuGoto(evt){const item=evt.currentTarget;const target=item.getAttribute('data-target');document.querySelectorAll('.menu-item').forEach(mi=>mi.classList.remove('active'));item.classList.add('active');const el=document.getElementById(target);if(!el)return;handleFocus(target);el.scrollIntoView({behavior:'smooth',block:'center'});}
+// Focus
+let currentFocused=null;
 function handleFocus(cardId){
-  const card = document.getElementById(cardId);
-  if(!card) return;
-  const all = Array.from(document.querySelectorAll('.card'));
-  // toggle
-  const willUnfocus = currentFocused === cardId;
-  if(willUnfocus){
-    // remove focused
-    card.classList.remove('focused');
-    all.forEach(c => c.classList.remove('dimmed'));
-    currentFocused = null;
-    return;
-  }
-  // set focused
-  currentFocused = cardId;
-  all.forEach(c => {
-    if(c.id === cardId){
-      c.classList.add('focused');
-      c.classList.remove('dimmed');
-      // ensure on top
-      c.style.zIndex = 30;
-    } else {
-      c.classList.remove('focused');
-      c.classList.add('dimmed');
-      c.style.zIndex = '';
-    }
-  });
-  // optional: move into center of viewport
-  setTimeout(()=> {
-    card.scrollIntoView({behavior:'smooth', block:'center'});
-  }, 160);
-}
-
-/* ---------- Utilities ---------- */
-function copyText(id){
-  const el = document.getElementById(id);
-  if(!el) return alert('Nothing to copy');
-  const txt = el.innerText || el.value || '';
-  if(!txt) return alert('Empty');
-  navigator.clipboard.writeText(txt).then(()=>{ alert('Copied'); }).catch(()=>alert('Copy failed'));
-}
-
-/* ---------- Tools implementation ---------- */
-/* UUID */
-function genUUID(){
-  try {
-    const u = crypto.randomUUID();
-    document.getElementById('uuidOut').innerText = u;
-  } catch(e){
-    const u = 'xxxxxxxx-xxxx-4xxx-yxxx
+  const card=document.getElementById(cardId);
+  if(!card)return;
+  const all=Array.from(document.querySelectorAll('.card'));
+  const willUnfocus=currentFocused===cardId;
+  if(willUnfocus){card.classList.remove('focused');all.forEach(c=>c.classList.remove('dimmed'));currentFocused=null;return;}
+  currentFocused=cardId;
+  all.forEach(c=>{if(c.id===cardId){c.classList.add('focused');c.classList.remove('dimmed');c.style.zIndex=30;}else{c.classList.remove('focused');c.classList.add('dimmed');c.style.zIndex='';
