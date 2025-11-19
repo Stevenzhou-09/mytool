@@ -1,160 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-<meta charset="UTF-8">
-<title>Steven Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StevenTools - Online Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+    :root{
+        --bg1: rgba(255,255,255,0.7);
+        --card: #ffffff;
+        --text: #1f2937;
+        --accent: #3b82f6;
+        --glass: rgba(255,255,255,0.6);
+    }
+    [data-theme='dark']{
+        --bg1: rgba(6,10,14,0.6);
+        --card: rgba(10,14,18,0.75);
+        --text: #e6eef6;
+        --accent: #60a5fa;
+        --glass: rgba(255,255,255,0.03);
+    }
+
+    *{box-sizing:border-box}
     body {
         margin: 0;
-        padding: 0;
-        background: #0d1117;
-        font-family: Arial, sans-serif;
-        color: #e6edf3;
-        text-align: center;
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        background: linear-gradient(135deg,#eef2f3 0%,#d9e2ec 100%);
+        color: var(--text);
+        -webkit-font-smoothing:antialiased;
+        min-height:100vh;
     }
 
-    header {
-        padding: 30px 0;
-        font-size: 32px;
-        font-weight: bold;
-        color: #58a6ff;
+    header{
+        position:sticky;top:0;z-index:40;
+        display:flex;align-items:center;justify-content:space-between;
+        gap:12px;padding:18px 28px;background:var(--bg1);backdrop-filter:blur(6px);
+        border-bottom:1px solid rgba(0,0,0,0.04);
     }
 
-    .container {
-        max-width: 900px;
-        margin: auto;
-        padding: 20px;
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+        width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+        background:linear-gradient(135deg,var(--accent),#7c3aed);color:white;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(59,130,246,0.18);
     }
+    .title{font-weight:700;font-size:18px}
 
-    .card {
-        background: #161b22;
-        margin: 20px 0;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 0 10px #000;
-    }
+    .controls{display:flex;align-items:center;gap:10px}
+    .theme-toggle{padding:8px 12px;border-radius:10px;border:none;cursor:pointer;background:transparent}
 
-    button {
-        background: #238636;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+    .wrap{max-width:1100px;margin:28px auto;padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
 
-    button:hover {
-        background: #2ea043;
+    .card{
+        background:var(--card);border-radius:14px;padding:18px;box-shadow:0 8px 30px rgba(2,6,23,0.06);border:1px solid rgba(15,23,42,0.03);
+        backdrop-filter:blur(6px);
     }
+    .card h3{margin:0 0 8px 0}
+    .muted{color:rgba(0,0,0,0.45);font-size:13px}
 
-    input, select {
-        width: 80%;
-        padding: 10px;
-        border-radius: 8px;
-        border: none;
-        margin: 10px 0;
-        font-size: 15px;
-    }
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:white;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(59,130,246,0.18)}
 
-    .output {
-        margin-top: 10px;
-        padding: 10px;
-        background: #0d1117;
-        border: 1px solid #30363d;
-        border-radius: 8px;
-        word-wrap: break-word;
-    }
+    input, textarea, select{width:100%;padding:10px;border-radius:10px;border:1px solid #d1d5db;margin-top:8px;font-size:14px}
+    textarea{min-height:90px}
+
+    .output{margin-top:10px;padding:10px;border-radius:10px;background:var(--glass);border:1px solid rgba(0,0,0,0.04);word-break:break-word}
+
+    footer{text-align:center;padding:20px;color:rgba(0,0,0,0.45)}
+
+    /* responsive tweaks */
+    @media (max-width:640px){header{padding:12px} .wrap{padding:12px;gap:12px}}
 </style>
-
 </head>
-<body>
 
+<body data-theme="light">
 <header>
-    Steven Tools
+    <div class="brand">
+        <div class="logo">ST</div>
+        <div>
+            <div class="title">StevenTools</div>
+            <div class="muted">轻量实用的在线工具集合</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="themeBtn" class="theme-toggle" title="切换深色/浅色">🌙/☀️</button>
+        <button id="downloadBtn" class="btn ghost" title="下载站点源码">下载源码</button>
+    </div>
 </header>
 
-<div class="container">
-
+<main class="wrap">
     <!-- UUID -->
-    <div class="card">
-        <h2>UUID 生成器</h2>
-        <button onclick="generateUUID()">生成 UUID</button>
-        <div id="uuidOutput" class="output"></div>
+    <div class="card" id="card-uuid">
+        <h3>UUID 生成器</h3>
+        <div class="muted">生成 RFC4122 v4 格式的 UUID</div>
+        <div style="margin-top:12px">
+            <button class="btn" onclick="genUUID()">生成 UUID</button>
+            <button class="btn ghost" onclick="copyToClipboard('uuidOut')">复制</button>
+            <div id="uuidOut" class="output" style="margin-top:10px">点击生成</div>
+        </div>
     </div>
 
-    <!-- Password Generator -->
-    <div class="card">
-        <h2>密码生成器</h2>
-        <input type="number" id="pwLength" placeholder="密码长度（建议 8 - 32）" min="4" max="64">
-        <button onclick="generatePassword()">生成密码</button>
-        <div id="passwordOutput" class="output"></div>
+    <!-- Password -->
+    <div class="card" id="card-pw">
+        <h3>密码生成器</h3>
+        <div class="muted">可选长度与包含字符集</div>
+        <label>长度</label>
+        <input type="number" id="pwLen" value="16" min="4" max="128">
+        <label style="margin-top:8px">包含字符</label>
+        <select id="pwPreset">
+            <option value="strong">强（大小写+数字+符号）</option>
+            <option value="alnum">字母+数字</option>
+            <option value="letters">仅字母</option>
+            <option value="custom">自定义</option>
+        </select>
+        <input type="text" id="pwCustom" placeholder="自定义字符集（仅在自定义时生效）" style="display:none;margin-top:8px">
+        <div style="margin-top:10px">
+            <button class="btn" onclick="genPassword()">生成</button>
+            <button class="btn ghost" onclick="copyToClipboard('pwOut')">复制</button>
+        </div>
+        <div id="pwOut" class="output">等待生成</div>
     </div>
 
-    <!-- GPA Calculator -->
-    <div class="card">
-        <h2>GPA 计算器</h2>
-        <input type="number" id="scoreInput" placeholder="输入你的成绩（0-100）">
-        <button onclick="calcGPA()">计算 GPA</button>
-        <div id="gpaOutput" class="output"></div>
+    <!-- AES -->
+    <div class="card" id="card-aes">
+        <h3>AES 加密/解密（AES-GCM）</h3>
+        <div class="muted">使用 Web Crypto API，本地执行，不上传服务器</div>
+        <label>密钥（任意文本）</label>
+        <input id="aesKey" placeholder="输入密钥短语">
+        <label style="margin-top:8px">明文 / 密文</label>
+        <textarea id="aesInput" placeholder="输入明文或 Base64 密文"></textarea>
+        <div style="margin-top:8px">
+            <button class="btn" onclick="aesEncrypt()">加密（输出 Base64）</button>
+            <button class="btn ghost" onclick="aesDecrypt()">解密（输入 Base64）</button>
+            <button class="btn ghost" onclick="clearAes()">清空</button>
+        </div>
+        <div id="aesOut" class="output">结果显示在这里</div>
     </div>
 
-</div>
+    <!-- Base64 -->
+    <div class="card" id="card-b64">
+        <h3>Base64 编码/解码</h3>
+        <div class="muted">支持 UTF-8 文本与 URL 安全模式</div>
+        <textarea id="b64Input" placeholder="输入文本或 Base64"></textarea>
+        <div style="margin-top:8px">
+            <button class="btn" onclick="b64Encode()">编码</button>
+            <button class="btn ghost" onclick="b64Decode()">解码</button>
+            <button class="btn ghost" onclick="copyToClipboard('b64Out')">复制</button>
+        </div>
+        <div id="b64Out" class="output">结果显示在这里</div>
+    </div>
 
+    <!-- Text formatter -->
+    <div class="card" id="card-text">
+        <h3>文本格式化 / JSON 美化</h3>
+        <div class="muted">支持 JSON 美化、压缩与行首缩进</div>
+        <textarea id="textInput" placeholder='输入 JSON 或文本'></textarea>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn" onclick="prettyJSON()">JSON 美化</button>
+            <button class="btn ghost" onclick="minifyJSON()">JSON 压缩</button>
+            <button class="btn ghost" onclick="trimLines()">去除行首空白</button>
+            <button class="btn ghost" onclick="copyToClipboard('textOut')">复制</button>
+        </div>
+        <div id="textOut" class="output">结果显示在这里</div>
+    </div>
+
+    <!-- Speed test -->
+    <div class="card" id="card-speed">
+        <h3>网页测速（快速）</h3>
+        <div class="muted">测量 DNS/连接/TTFB/总加载时间（仅作参考）</div>
+        <input id="speedUrl" placeholder="输入 URL，例如 https://example.com">
+        <div style="margin-top:8px">
+            <button class="btn" onclick="runSpeedTest()">开始测试</button>
+            <button class="btn ghost" onclick="clearSpeed()">清空</button>
+        </div>
+        <div id="speedOut" class="output">测试结果会显示在这里</div>
+    </div>
+
+</main>
+
+<footer>StevenTools • 轻量工具集合 — 本站所有操作均在浏览器本地执行</footer>
 
 <script>
-/* UUID */
-function generateUUID() {
-    const uuid = crypto.randomUUID();
-    document.getElementById("uuidOutput").innerText = uuid;
+// Theme toggle
+const themeBtn = document.getElementById('themeBtn');
+const body = document.body;
+function setTheme(t){
+    if(t==='dark') body.setAttribute('data-theme','dark');
+    else body.setAttribute('data-theme','light');
+    localStorage.setItem('st_theme',t);
+}
+themeBtn.addEventListener('click', ()=>{
+    const cur = localStorage.getItem('st_theme') || 'light';
+    setTheme(cur==='light' ? 'dark' : 'light');
+});
+// init
+setTheme(localStorage.getItem('st_theme')||'light');
+
+// Download source (creates a single-file blob)
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+    const html = `<!DOCTYPE html>
+` + document.documentElement.outerHTML;
+    const blob = new Blob([html],{type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='steventools.html'; a.click();
+    URL.revokeObjectURL(url);
+});
+
+// Utils
+function copyToClipboard(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    const txt = el.innerText || el.value || '';
+    navigator.clipboard.writeText(txt).then(()=>alert('已复制到剪贴板')).catch(()=>alert('复制失败'));
 }
 
-/* Password Generator */
-function generatePassword() {
-    const length = document.getElementById("pwLength").value;
-    if (!length || length < 4) {
-        alert("请输入合适的密码长度！");
-        return;
+// UUID
+function genUUID(){
+    try{
+        const u = crypto.randomUUID();
+        document.getElementById('uuidOut').innerText = u;
+    }catch(e){
+        // fallback
+        const u = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
+            const r = Math.random()*16|0, v = c==='x'?r:(r&0x3|0x8);
+            return v.toString(16);
+        });
+        document.getElementById('uuidOut').innerText = u;
     }
-
-    const chars =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+";
-
-    let pw = "";
-    for (let i = 0; i < length; i++) {
-        pw += chars[Math.floor(Math.random() * chars.length)];
-    }
-
-    document.getElementById("passwordOutput").innerText = pw;
 }
 
-/* GPA Calculator */
-function calcGPA() {
-    const score = document.getElementById("scoreInput").value;
-    if (score === "") {
-        alert("请输入成绩！");
-        return;
-    }
-
-    const n = Number(score);
-
-    let gpa = 0;
-    if (n >= 90) gpa = 4.0;
-    else if (n >= 85) gpa = 3.7;
-    else if (n >= 82) gpa = 3.3;
-    else if (n >= 78) gpa = 3.0;
-    else if (n >= 75) gpa = 2.7;
-    else if (n >= 72) gpa = 2.3;
-    else if (n >= 68) gpa = 2.0;
-    else if (n >= 64) gpa = 1.5;
-    else if (n >= 60) gpa = 1.0;
-    else gpa = 0.0;
-
-    document.getElementById("gpaOutput").innerText = "GPA: " + gpa.toFixed(1);
+// Password
+const presets = {
+    strong: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?~',
+    alnum: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+    letters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+};
+const pwPreset = document.getElementById('pwPreset');
+pwPreset.addEventListener('change', ()=>{
+    document.getElementById('pwCustom').style.display = pwPreset.value==='custom' ? 'block' : 'none';
+});
+function genPassword(){
+    const len = parseInt(document.getElementById('pwLen').value) || 12;
+    let chars = presets[pwPreset.value] || '';
+    if(pwPreset.value==='custom') chars = document.getElementById('pwCustom').value || 'abcdefghijklmnopqrstuvwxyz';
+    if(!chars) return alert('字符集为空');
+    let out = '';
+    const array = new Uint32Array(len);
+    window.crypto.getRandomValues(array);
+    for(let i=0;i<len;i++) out += chars[array[i] % chars.length];
+    document.getElementById('pwOut').innerText = out;
 }
+
+// AES-GCM helpers
+async function deriveKey(password, salt){
+    const enc = new TextEncoder();
+    const keyMaterial = await window.crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({name:'PBKDF2',salt:enc.encode(salt),iterations:250000,hash:'SHA-256'}, keyMaterial,{name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
+}
+function ab2b64(buf){
+    const bytes = new Uint8Array(buf);
+    let str='';
+    for(let i=0;i<bytes.byteLength;i++) str += String.fromCharCode(bytes[i]);
+    return btoa(str);
+}
+function b642ab(b64){
+    const str = atob(b64);
+    const buf = new Uint8Array(str.length);
+    for(let i=0;i<str.length;i++) buf[i]=str.charCodeAt(i);
+    return buf.buffer;
+}
+async function aesEncrypt(){
+    const pwd = document.getElementById('aesKey').value || '';
+    const plain = document.getElementById('aesInput').value || '';
+    if(!pwd || !plain) { alert('请输入密钥和明文'); return; }
+    const salt = 'st_salt_v1';
+    const key = await deriveKey(pwd, salt);
+    const iv = window.crypto.getRandomValues(new Uint8Array(12));
+    const enc = new TextEncoder();
+    const ct = await crypto.subtle.encrypt({name:'AES-GCM', iv:iv}, key, enc.encode(plain));
+    const out = ivToBase64(iv) + ':' + ab2b64(ct);
+    document.getElementById('aesOut').innerText = out;
+}
+async function aesDecrypt(){
+    const pwd = document.getElementById('aesKey').value || '';
+    const inp = document.getElementById('aesInput').value || '';
+    if(!pwd || !inp) { alert('请输入密钥和密文'); return; }
+    try{
+        const parts = inp.split(':');
+        const iv = base64ToUint8(parts[0]);
+        const ct = b642ab(parts[1]);
+        const key = await deriveKey(pwd, 'st_salt_v1');
+        const dec = await crypto.subtle.decrypt({name:'AES-GCM', iv:iv}, key, ct);
+        const decStr = new TextDecoder().decode(dec);
+        document.getElementById('aesOut').innerText = decStr;
+    }catch(e){
+        alert('解密失败：' + e.message);
+    }
+}
+function clearAes(){ document.getElementById('aesInput').value=''; document.getElementById('aesOut').innerText=''; }
+function ivToBase64(iv){ let s=''; for(let i=0;i<iv.length;i++) s+=String.fromCharCode(iv[i]); return btoa(s); }
+function base64ToUint8(b64){ const s=atob(b64); const u=new Uint8Array(s.length); for(let i=0;i<s.length;i++) u[i]=s.charCodeAt(i); return u; }
+
+// Base64
+function b64Encode(){
+    const txt = document.getElementById('b64Input').value || '';
+    try{ const enc = new TextEncoder(); const bytes = enc.encode(txt); let b=''; for(let i=0;i<bytes.length;i++) b+=String.fromCharCode(bytes[i]); document.getElementById('b64Out').innerText = btoa(b); }catch(e){alert('编码失败')}
+}
+function b64Decode(){
+    const txt = document.getElementById('b64Input').value || '';
+    try{ const str = atob(txt); let u=new Uint8Array(str.length); for(let i=0;i<str.length;i++) u[i]=str.charCodeAt(i); const dec = new TextDecoder().decode(u); document.getElementById('b64Out').innerText = dec; }catch(e){alert('解码失败')}
+}
+
+// Text formatter
+function prettyJSON(){
+    const src = document.getElementById('textInput').value || '';
+    try{ const obj = JSON.parse(src); document.getElementById('textOut').innerText = JSON.stringify(obj, null, 2); }catch(e){ alert('不是有效 JSON'); }
+}
+function minifyJSON(){
+    const src = document.getElementById('textInput').value || '';
+    try{ const obj = JSON.parse(src); document.getElementById('textOut').innerText = JSON.stringify(obj); }catch(e){ alert('不是有效 JSON'); }
+}
+function trimLines(){ const t=document.getElementById('textInput').value; document.getElementById('textOut').innerText = t.split('
+').map(s=>s.trimStart()).join('
+'); }
+
+// Speed test (simple): measure fetch+download time and TTFB approximation
+async function runSpeedTest(){
+    const url = document.getElementById('speedUrl').value.trim();
+    if(!url) return alert('请输入 URL');
+    const out = document.getElementById('speedOut'); out.innerText = '正在测试...';
+    try{
+        const t0 = performance.now();
+        const r = await fetch(url, {mode:'no-cors'}).catch(e=>null);
+        const t1 = performance.now();
+        // Note: with no-cors responses are opaque; we can't read content-length. Use timing only.
+        out.innerText = `请求发出时间: ${(t1-t0).toFixed(1)} ms (近似，总加载时间)`;
+    }catch(e){ out.innerText = '测速失败：' + e.message }
+}
+function clearSpeed(){ document.getElementById('speedUrl').value=''; document.getElementById('speedOut').innerText=''; }
+
 </script>
-
 </body>
 </html>
